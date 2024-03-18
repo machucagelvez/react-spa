@@ -1,10 +1,16 @@
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 export const LoginPage = () => {
+  const { login } = useContext(AuthContext)
   const navigate = useNavigate()
 
   const onLogin = () => {
-    navigate('/', { replace: true })
+    // lastPath se está usando para que al loguearse se vuelva al mismo lugar desde donde se hizo logout.
+    const lastPath = localStorage.getItem('lastPath') || '/'
+    login('Ozzy Osbourne')
+    navigate(lastPath, { replace: true })
   }
 
   return (
